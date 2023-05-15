@@ -1,0 +1,45 @@
+<!-- NAVBAR -->
+<header id="content">
+    <nav class="nav">
+      <form action="#"></form>
+      <!-- <a href="#" class="notification">
+        <i class='bx bxs-bell' ></i>
+      </a> -->
+      <a class="profile">{{username}}</a>
+      <button (click)="logOut()">Déconnecter</button>
+    </nav>
+</header>
+<!-- NAVBAR -->
+
+<!-- Interface d'éxecution-->
+<main class="interface">
+    <div class="left">
+            <div class="title-l">
+                <h2>Procedure</h2>
+                <h2>Action</h2>
+            </div>
+        <div  class="programs">
+            <div *ngFor="let program of programs" class="proc-list">
+                <h4>{{program.name}}</h4>
+            <div class="btns">
+                <button (click)="execute(program)">Executer</button>
+                <button (click)="signal(program)">Signaler</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+            <div class="title-r">
+                <h2>Console</h2>
+            </div>
+        <div class="console">
+          {{ consoleText }}
+            <ul *ngIf="errorList && errorList.length > 0">
+            <li *ngFor="let error of errorList">
+                {{ error.text }} (<span>Line</span>: {{ error.line }}, <span>Position</span>: {{ error.position }})
+            </li>
+            </ul>
+        </div>
+        
+    </div>
+</main>

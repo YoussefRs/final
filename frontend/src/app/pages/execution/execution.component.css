@@ -1,0 +1,182 @@
+@import url('https://fonts.cdnfonts.com/css/lucida-console');
+@import url('https://fonts.cdnfonts.com/css/lucida-console');
+
+/* NAVBAR */
+#content nav {
+    height: 56px;
+    background: var(--light);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+    font-family: var(--lato);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  #content nav::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    bottom: -40px;
+    left: 0;
+    border-radius: 50%;
+    box-shadow: -20px -20px 0 var(--light);
+  }
+  
+ 
+  #content nav form {
+    max-width: 400px;
+    width: 100%;
+    margin-right: auto;
+  }
+  
+  #content nav .notification {
+    font-size: 20px;
+    position: relative;
+  }
+ 
+  #content nav .switch-mode {
+    display: block;
+    min-width: 50px;
+    height: 25px;
+    border-radius: 25px;
+    background: var(--grey);
+    cursor: pointer;
+    position: relative;
+  }
+  #content nav .switch-mode::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: calc(25px - 4px);
+    background: var(--blue);
+    border-radius: 50%;
+    transition: all .3s ease;
+  }
+  #content nav #switch-mode:checked + .switch-mode::before {
+    left: calc(100% - (25px - 4px) - 2px);
+  }
+/* NAVBAR */
+
+/* css du l'interface * --début-- */
+.interface {
+    color: #fff;
+    height: 90vh;
+    border: 1px solid #fff;
+    border-radius: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    
+
+}
+/* css du l'interface * --fin-- */
+
+/* css du l'interface (liste des procédures) * --début-- */
+.interface .left {
+    padding-left: 20px;
+    padding-right: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 98%;
+    
+}
+
+.interface .title-l {
+    width: 100%;
+    height: 39px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ff8800;
+    padding-right: 80px;
+    padding-left: 30px;
+}
+.interface .title-l h2{
+    font-size: 25px;
+}
+
+.interface .left .programs {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 5px;
+    border: 1px solid #ff8800;
+    gap: 10px;
+    overflow-y: auto;
+}
+.interface .left .programs .proc-list {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
+}
+.interface .left .programs .proc-list h4 {
+  padding-top: 6px;
+  font-size: 15px;
+  width: 60px;
+}
+
+.btns {
+  padding-top: 3px;
+}
+
+
+/* css du l'interface (liste des procédures) * --fin-- */
+
+/* css du l'interface (console d'éxecution) * --début-- */
+.interface .right {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+    height: 98%;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.interface .title-r {
+    width: 100%;
+    height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ff8800;
+}
+.interface .title-r h2 {
+  font-size: 25px;
+}
+
+.console {
+  width: 90%;
+  height: 100%;
+  margin: 50px;
+  border: 1px solid #ff8800;
+  display: flex;
+  flex-direction: column;
+  
+  padding-left: 20px;
+  padding-top: 20px;
+  font-size: 30px;
+  background: #000;
+  font-family: 'Lucida Console', sans-serif;
+}
+.interface .console ul {
+  padding: 0;
+  margin: 0;
+  
+}
+.interface .console ul li span {
+  color: greenyellow;
+}
+
+/* css du l'interface (console d'éxecution) * --fin-- */

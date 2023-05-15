@@ -1,0 +1,95 @@
+<section id="content">
+    <!-- MAIN -->
+    <main>
+      <div class="table-data">
+        <div class="order">
+          <div class="head">
+            <h3>Gestion des procédures <button (click)="openModal()" data-bs-toggle="modal" data-bs-target="#myModal"><mat-icon>add_circle</mat-icon>Ajouter</button></h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Procédures</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let procedure of procedures || []">
+                <td>
+                  <p>{{procedure.id}}</p>
+                </td>
+                <td>
+                  <p>{{procedure.name}}</p>
+                </td>
+                <td *ngIf="procedure.name && procedure.body">
+                  <button (click)="getProcedure(procedure)"><mat-icon>code</mat-icon></button>
+                  <button (click)="handleDelete(procedure)"><mat-icon style="color: red;">delete</mat-icon></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       
+      </div> 
+    </main>
+    <!-- MAIN -->
+  </section>
+
+  <!--AJOUTER UNE PROCEDURE MODAL-->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog show">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header" style="color: black;">
+          <h4 class="modal-title">Ajouter une procédure</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <textarea id="subject" name="subject" placeholder="Write something.." style="position: absolute; height: 90%; width: 93%;" [(ngModel)]="body"></textarea>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onCreateProcedure()">Save</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!--AJOUTER UNE PROCEDURE MODAL-->
+
+  <!--CONSOLE MODAL-->
+  <div class="modal " id="myModalConsole">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header" style="color: black;">
+          <h4 class="modal-title">Code du procédure</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModalConsole()"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" >
+          <textarea   
+            *ngFor="let procedure of procedures "
+            style="position: absolute; 
+                  height: 90%; 
+                  width: 93%; 
+                  overflow-y: auto;
+                  background: black;
+                  color: wheat;"
+                  [(ngModel)]="consoleBody"
+                  >
+          </textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--CONSOLE MODAL-->

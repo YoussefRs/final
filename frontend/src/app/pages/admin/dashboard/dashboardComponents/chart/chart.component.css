@@ -1,0 +1,71 @@
+#content main {
+    height: 100%;
+    width: calc(100% - 16.5625rem);
+    max-height: calc(100vh - 56px);
+  }
+  #content main .chart-data{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin-top: 24px;
+    width: 100%;
+  }
+  #content main .chart-data> div {
+    border-radius: 20px;
+    padding: 24px;
+    overflow-x: auto;
+  }
+  
+  #content main .chart-data.head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    grid-gap: 16px;
+    margin-bottom: 24px;
+  }
+  #content main .chart-data.head h3 {
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    gap: 20px;
+  }
+
+  #content main .chart-data .chart-container {
+    height: 50%;
+    width: 50%;
+    display: flex;
+  }
+
+  #content main .chart-data .chart-container #piechart {
+    height: 450px;
+    width: 50%;
+    margin-right: 60px;
+    position: relative;
+  }
+
+  .chart-info {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .chart-info h3{
+    width: 500px;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+
+}
+
+.title {
+    margin-top: 45px;
+    margin-left: 20px;
+}
+.title h1 {
+    font-size: 24px;
+    font-weight: 600;
+}

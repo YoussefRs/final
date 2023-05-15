@@ -1,0 +1,63 @@
+
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : '' ">
+  <div class="logo-container">
+    <button class="logo">PS</button>
+    <div class="logo-text" *ngIf="collapsed">PLSQL Supervisor</div>
+  </div>
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of navData">
+      <a class="sidenav-nav-link" 
+        (click)="handleClick(data)"
+        *ngIf="data.list && data.list.length > 0">
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" *ngIf="collapsed">{{data.Label}}</span>
+        <i *ngIf="data.list && collapsed" class="menu-collapse-icon"
+         [ngClass]="!data.expanded ? 'fal fa-angle-right' : 'fal fa-angle-down'"></i>
+      </a>
+      <a class="sidenav-nav-link" 
+      *ngIf="!data.list || (data.list && data.list.length === 0)"
+          [routerLink]="[data.routerLink]" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{exact : true}">
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" *ngIf="collapsed">
+          {{data.Label}}
+        </span>
+      </a>
+      <div *ngIf="collapsed && data.list && data.list.length > 0" >
+          <app-sublevel-menu
+            [data]= "data"
+            [collapsed]="collapsed"
+            [multiple]="multiple"
+            [expanded]="data.expanded"
+          >
+          </app-sublevel-menu>
+      </div>
+  </ul>
+  
+</div>
+<main id="content">
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="dropdown">
+      <a class="notification">
+        <i class='bx bxs-bell' ></i>
+        <span class="num">{{notificationCount}}</span>
+      </a>
+      <div class="dropdown-content">
+        <a routerLink="procedure/gestion" *ngFor="let Notification of notifications">{{Notification.text}}</a>
+      </div>
+    </div>
+    <a class="profile">{{username}}</a>
+    <button (click)="logOut()">déconnecter</button>
+  </nav>
+  <!-- NAVBAR -->
+  <router-outlet></router-outlet>
+</main>
+
+
+
+
+
+
+

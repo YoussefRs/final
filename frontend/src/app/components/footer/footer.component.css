@@ -1,0 +1,28 @@
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
+    border-top: 1px solid #fff;
+    padding-top: 5px;
+    height: 65px;
+    backdrop-filter: blur(6px);
+}
+
+.title {
+    font-size: 0.8rem;
+    padding-left: 30px;
+    color: white;
+    position: absolute;
+    top:  35%;
+    left: 44%;
+}
+
+
+@media (max-width: 500px) {
+    .social-media {
+      gap: 3rem;
+    }
+  }

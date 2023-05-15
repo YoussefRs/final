@@ -1,0 +1,147 @@
+<section id="content">
+  <!-- MAIN -->
+  <main>
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>Gestion des utilisateurs <button (click)="openModal()" data-bs-toggle="modal" data-bs-target="#myModal"><mat-icon>add_circle</mat-icon>Ajouter</button></h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Utilisateur</th>
+              <th>Email</th>
+              <th>Rôle</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>
+                {{user.id}}
+              </td>
+              <td>
+                {{user.username}}
+              </td>
+              <td>{{user.email}}</td>
+              <td *ngFor="let role of user.roles">{{role.name}}</td>
+              <td>
+                <button (click)="openModalModif(user, user.id)"><mat-icon>reorder</mat-icon></button>
+                <button (click)="onDelete(user.id)"><mat-icon style="color: red;">delete</mat-icon></button>
+                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> 
+  </main>
+  <!-- MAIN -->
+</section>
+
+<!--AJOUTER UN UTLISATER MODAL-->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog show">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="color: black;">
+        <h4 class="modal-title">Ajouter un utilisateur</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <input placeholder="Username ..." type="text"
+            name="username"
+            [(ngModel)]="form.username"
+            required
+            minlength="3"
+            maxlength="20"
+            #username="ngModel">
+        <input placeholder="Email ..." type="email"
+            name="email"
+            [(ngModel)]="form.email"
+            required
+            email
+            #email="ngModel">
+        <input placeholder="Password ..." type="password"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            minlength="6"
+            #password="ngModel">
+        <div class="form-check" style="color: black;" *ngFor="let role of roles">
+          <input class="form-check-input" type="radio" name="role" id="{{ role }}" value="{{ role }}" [(ngModel)]="selectedRole" required #role="ngModel">
+          <label class="form-check-label" for="{{ role }}">
+            {{ role }}
+          </label>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"  (click)="onCreateUser()">Ajouter</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--AJOUTER UN UTLISATER MODAL-->
+
+
+
+<!--MODIFIER UN UTLISATER MODAL-->
+<div class="modal " id="myModalModif">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="color: black;">
+        <h4 class="modal-title">Modifier un utilisateur</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModalModif()"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <input placeholder="Username ..." type="text"
+            name="username"
+            [(ngModel)]="form.username"
+            [value]="form.username"
+            required
+            minlength="3"
+            maxlength="20">
+        <input placeholder="Email ..." type="email"
+            [(ngModel)]="form.email"
+            [value]="form.email"
+            name="email"
+            required
+            email
+            >
+        <input placeholder="New password ..." type="password"
+            [(ngModel)]="form.password"
+            name="password"
+            required
+            minlength="6"
+            #password="ngModel">
+        <div class="form-check" style="color: black;" *ngFor="let role of roles">
+          <input class="form-check-input" type="radio" name="role" id="{{ role }}" value="{{ role }}" [(ngModel)]="form.role" >
+          <label class="form-check-label" for="{{ role }}">
+            {{ role }}
+          </label>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="OnUpdateUser(form.userId)">Enregistrer</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModalModif()">Fermer</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--MODIFIER UN UTLISATER MODAL-->
+
