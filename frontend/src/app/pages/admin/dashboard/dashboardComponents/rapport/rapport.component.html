@@ -1,0 +1,41 @@
+<section id="content">
+    <!-- MAIN -->
+    <main>
+      <div class="table-data">
+        <div class="order">
+          <div class="head">
+            <h3>Rapports </h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Procédures</th>
+                <th>Status</th>
+                <th>erreur</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let log of procLogs">
+                <td>
+                  <p >{{log.name}}</p>
+                </td>
+                <td *ngIf="log.status === 'error'">
+                  <mat-icon style="color: red;">error</mat-icon>
+                </td>
+                <td *ngIf="log.status === 'success'">
+                  <mat-icon style="color: green;">check</mat-icon>
+                </td>
+                <td>
+                  <p >{{log.error}}</p>
+                </td>
+                <td>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       
+      </div> 
+    </main>
+    <!-- MAIN -->
+  </section>

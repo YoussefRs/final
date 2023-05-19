@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "procedures")
-public class Program {
+public class Procedures {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +18,9 @@ public class Program {
     private String text;
 
     // Constructors, getters, and setters
-    public Program() {}
+    public Procedures() {}
 
-    public Program(String name, String text) {
+    public Procedures(String name, String text) {
         this.name = name;
         this.text = text;
     }

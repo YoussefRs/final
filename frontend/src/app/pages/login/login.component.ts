@@ -19,12 +19,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // login 
   onSubmit() {
     this.authApi.login(this.form).subscribe(
       data => {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.userService.setUser(data.username);
+        this.userService.setUser(data.username); // Passer le nom de l'utilsateur connecté pour l'afficher dans le navBar par suite
       },
       err => {
         this.toastr.error("veillez vérifier votre nom d'utilisateur/mot de passe!")

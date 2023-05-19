@@ -1,7 +1,6 @@
 package com.khaoula.plsql.payload.response;
 
 
-//for admin
 import java.util.Date;
 
 public class NotificationResponse {

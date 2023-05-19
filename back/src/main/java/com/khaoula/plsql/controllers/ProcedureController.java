@@ -27,9 +27,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.khaoula.plsql.models.ProcLog;
-import com.khaoula.plsql.models.Program;
-import com.khaoula.plsql.repository.ProcLogRepository;
+import com.khaoula.plsql.models.Proc_log;
+import com.khaoula.plsql.models.Procedures;
+import com.khaoula.plsql.repository.Proc_logRepository;
 import com.khaoula.plsql.requests.ProcLogResponse;
 import com.khaoula.plsql.requests.ProcedureCreateRequest;
 import com.khaoula.plsql.requests.ProcedureResponse;
@@ -52,10 +52,10 @@ public class ProcedureController {
     private JdbcTemplate jdbcTemplate;
     
     @Autowired
-    private ProcLogRepository procLogRepository;
+    private Proc_logRepository procLogRepository;
 
    
-    
+    // Insert a new procedure controller
     @PostMapping(path = "/procedures", consumes = "application/sql")
     public ResponseEntity<ProcedureResponse> createProcedure(@RequestBody String sql) {
         String name = extractProcedureName(sql);
@@ -63,7 +63,7 @@ public class ProcedureController {
         jdbcTemplate.execute(sql);
         return ResponseEntity.ok(new ProcedureResponse("Procedure created successfully"));
     }
-
+    	// Extracting the name of the procedure
     private String extractProcedureName(String sql) {
         Pattern pattern = Pattern.compile("(?i)PROCEDURE\\s+([\\w_]+)");
         Matcher matcher = pattern.matcher(sql);
@@ -73,6 +73,7 @@ public class ProcedureController {
         throw new IllegalArgumentException("Could not extract procedure name from SQL string");
     }
     
+    // Get all the stored procedures
     @GetMapping("/procedures")
     public List<ProcedureResponse> getAllProcedures() {
         String sql = "SELECT id, name, text, (SELECT COUNT(*) FROM procedures) AS count FROM procedures";
@@ -88,6 +89,7 @@ public class ProcedureController {
         return procedures;
     }
     
+    // Execute a procedure by its name
     @PostMapping("/procedures/{procedureName}")
     public ResponseEntity<ProcedureResponse> executeProcedure(@PathVariable String procedureName) {
         String sql = "{CALL " + procedureName + "}";
@@ -105,7 +107,8 @@ public class ProcedureController {
             }
             CallableStatement stmt = conn.prepareCall(sql);
             stmt.execute();
-            ProcLog procLog = new ProcLog();
+            // Insert results in proc_log table
+            Proc_log procLog = new Proc_log();
             procLog.setName(procedureName);
             procLog.setBody(procedureCode);
             procLog.setStatus("success");
@@ -117,6 +120,9 @@ public class ProcedureController {
                 ps.setString(1, procedureName);
                 ResultSet rs = ps.executeQuery();
                 List<Map<String, Object>> errorList = new ArrayList<>();
+                // Getting compilation error details from ALL_ERRORS view
+                // The ALL_ERRORS view includes columns such as NAME, TYPE, LINE, POSITION, and TEXT, 
+                //  which provide information about the object name, type, line number, position, and error text for each compilation error.
                 while (rs.next()) {
                     Map<String, Object> errorMap = new HashMap<>();
                     errorMap.put("name", rs.getString("NAME"));
@@ -127,7 +133,7 @@ public class ProcedureController {
                     errorMap.put("text", errorText);
                     errorList.add(errorMap);
 
-                    ProcLog procLog = new ProcLog();
+                    Proc_log procLog = new Proc_log();
                     procLog.setName(procedureName);
                     procLog.setBody(procedureCode);
                     procLog.setStatus("error");
@@ -143,76 +149,14 @@ public class ProcedureController {
         }
     }
     
-//    @PostMapping("/procedures/{procedureName}")
-//    public ResponseEntity<ProcedureResponse> executeProcedure(@PathVariable String procedureName) {
-//    String sql = "{CALL " + procedureName + "}";
-//    String procedureCode = null;
-//    try (Connection conn = jdbcTemplate.getDataSource().getConnection()) {
-//    // Retrieve procedure definition from the database
-//    try (PreparedStatement ps = conn.prepareStatement("SELECT text FROM procedures WHERE name = ?")) {
-//    ps.setString(1, procedureName);
-//    ResultSet rs = ps.executeQuery();
-//    if (rs.next()) {
-//    procedureCode = rs.getString("text");
-//    } else {
-//    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//    .body(new ProcedureResponse("Procedure not found"));
-//    }
-//    }
-//    CallableStatement stmt = conn.prepareCall(procedureCode);
-//    stmt.execute();
-//    ProcLog procLog = new ProcLog();
-//    procLog.setName(procedureName);
-//    procLog.setBody(procedureCode);
-//    procLog.setStatus("success");
-//    procLogRepository.save(procLog);
-//    return ResponseEntity.ok(new ProcedureResponse("Executed successfully"));
-//    } catch (SQLException e) {
-//    try (Connection conn = jdbcTemplate.getDataSource().getConnection();
-//    PreparedStatement ps = conn.prepareStatement("SELECT * FROM ALL_ERRORS WHERE NAME = ?")) {
-//    ps.setString(1, procedureName);
-//    ResultSet rs = ps.executeQuery();
-//    List<Map<String, Object>> errorList = new ArrayList<>();
-//    while (rs.next()) {
-//    Map<String, Object> errorMap = new HashMap<>();
-//    errorMap.put("name", rs.getString("NAME"));
-//    errorMap.put("type", rs.getString("TYPE"));
-//    errorMap.put("line", rs.getInt("LINE"));
-//    errorMap.put("position", rs.getInt("POSITION"));
-//    String errorText = rs.getString("TEXT");
-//    errorMap.put("text", errorText);
-//    errorList.add(errorMap);
-//
-//                ProcLog procLog = new ProcLog();
-//                procLog.setName(procedureName);
-//                procLog.setBody(procedureCode);
-//                procLog.setStatus("error");
-//                procLog.setError(errorText);
-//                procLogRepository.save(procLog);
-//            }
-//
-//            return ResponseEntity.ok(new ProcedureResponse(errorList));
-//        } catch (SQLException ex) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new ProcedureResponse("An error occurred while retrieving the error: " + ex.getMessage()));
-//        }
-//    }
-//   }
-
-    
-    
+    // Get all the reports (Admin side, rapport interface)
     @GetMapping("/procedures/logs")
     public ProcLogResponse getProcLogs() {
-        List<ProcLog> procLogs = procLogRepository.findAll();
+        List<Proc_log> procLogs = procLogRepository.findAll();
         return new ProcLogResponse(procLogs);
     }
     
-    @PutMapping(path = "/procedures/{name}", consumes = "application/sql")
-    public ResponseEntity<ProcedureResponse> updateProcedureText(@PathVariable String name, @RequestBody String sql) {
-        jdbcTemplate.update("UPDATE procedures SET text = ? WHERE name = ?", sql, name);
-        return ResponseEntity.ok(new ProcedureResponse("Procedure text updated successfully"));
-    }
-    
+    // Get the statistiques
     @GetMapping("/procedures/stats")
     public Map<String, Integer> getProcedureStats() {
         String sql = "SELECT COUNT(DISTINCT name) AS proc_count, " +
@@ -230,7 +174,8 @@ public class ProcedureController {
         stats.put("failure", (failureCount * 100) / totalCount);
         return stats;
     }
-
+    
+    // Delete a procedure by its name 
     @DeleteMapping("/procedures/{name}")
     public ResponseEntity<ProcedureResponse> deleteProcedure(@PathVariable String name) {
         String sqlSelect = "SELECT * FROM procedures WHERE name = ?";
@@ -238,10 +183,10 @@ public class ProcedureController {
         try (Connection conn = jdbcTemplate.getDataSource().getConnection();
              PreparedStatement psSelect = conn.prepareStatement(sqlSelect);
              PreparedStatement psDelete = conn.prepareStatement(sqlDelete)) {
-            // Select the row from the programs table
+            // Select the row from the procedures table
             psSelect.setString(1, name);
             ResultSet rs = psSelect.executeQuery();
-            // Delete the row from the programs table
+            // Delete the row from the procedures table
             psDelete.setString(1, name);
             int rowsAffected = psDelete.executeUpdate();
             if (rowsAffected == 0) {

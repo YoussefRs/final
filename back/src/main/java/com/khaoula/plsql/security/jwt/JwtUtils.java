@@ -15,10 +15,10 @@ import io.jsonwebtoken.*;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${makrem.app.jwtSecret}")
+  @Value("${khaoula.app.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${makrem.app.jwtExpirationMs}")
+  @Value("${khaoula.app.jwtExpirationMs}")
   private int jwtExpirationMs;
 
   public String generateJwtToken(UserDetailsImpl userPrincipal) {

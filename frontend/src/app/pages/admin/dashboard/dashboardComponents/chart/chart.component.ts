@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { registerables, Chart } from 'chart.js';
+import { ProcedureApi } from 'src/app/API/procedure.api';
 Chart.register(...registerables);
 
 @Component({
@@ -15,10 +16,10 @@ export class ChartComponent implements OnInit {
   failProc: Number = 0;
   
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private procedueApi : ProcedureApi) {}
+  // Récuperer les statistique lors de chargement de la page
   ngOnInit(): void {
-    this.http.get('http://localhost:8081/programs/procedures/stats').subscribe((data: any) => {
+    this.procedueApi.getStats().subscribe((data: any) => {
     this.stats = data;
     this.rapportCount = data.total;
     this.succProc = data.success;

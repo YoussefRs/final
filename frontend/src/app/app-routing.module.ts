@@ -6,9 +6,9 @@ import { ExecutionComponent } from './pages/execution/execution.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UsersComponent } from './pages/admin/dashboard/dashboardComponents/users/users.component';
 import { ProceduresComponent } from './pages/admin/dashboard/dashboardComponents/procedures/procedures.component';
-import { GestionProceduresComponent } from './pages/admin/dashboard/dashboardComponents/gestion-procedures/gestion-procedures.component';
 import { AuthGuard } from './API/auth.Guard';
 import { ChartComponent } from './pages/admin/dashboard/dashboardComponents/chart/chart.component';
+import { RapportComponent } from './pages/admin/dashboard/dashboardComponents/rapport/rapport.component';
 
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path : 'admin/dashboard', component: DashboardComponent, children : [
     { path : 'utilisateur', component: UsersComponent },
     { path : 'procedure/liste', component: ProceduresComponent },
-    { path : 'procedure/gestion', component: GestionProceduresComponent },
+    { path : 'procedure/gestion', component: RapportComponent },
     { path : 'procedure/stats', component : ChartComponent}
   ] },
 ];

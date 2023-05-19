@@ -50,7 +50,7 @@ export class AuthApi {
     //route : /signup
     //@param : username / email / password
     // Enregistrer un nouveau utilisateur
-    register(user: any): Observable<any> {
+    AddUser(user: any): Observable<any> {
       return this.http.post(AUTH_API + 'signup', {
         username: user.username,
         email: user.email,
@@ -62,7 +62,7 @@ export class AuthApi {
 
     //route : /users
     // collecter la liste des utlisateurs qui se trouve dans la base de données
-    getUsers(): Observable<any> {
+    getAllUsers(): Observable<any> {
       return this.http.get(AUTH_API + 'users');
     }
     

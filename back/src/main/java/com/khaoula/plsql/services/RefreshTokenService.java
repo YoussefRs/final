@@ -17,7 +17,7 @@ import com.khaoula.plsql.repository.UserRepository;
 
 @Service
 public class RefreshTokenService {
-  @Value("${makrem.app.jwtRefreshExpirationMs}")
+  @Value("${khaoula.app.jwtRefreshExpirationMs}")
   private Long refreshTokenDurationMs;
 
   @Autowired

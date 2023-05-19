@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { INavbarData } from '../helper';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
+
+// Fonctionalité du sidebar 
 @Component({
   selector: 'app-sublevel-menu',
   template: `

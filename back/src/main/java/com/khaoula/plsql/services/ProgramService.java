@@ -7,24 +7,24 @@ import java.util.List;
 
 import java.util.Optional;
 
-import com.khaoula.plsql.models.Program;
-import com.khaoula.plsql.repository.ProgramRepository;
+import com.khaoula.plsql.models.Procedures;
+import com.khaoula.plsql.repository.ProceduresRepository;
 
 @Service
 public class ProgramService {
 
     @Autowired
-    private ProgramRepository programRepository;
+    private ProceduresRepository programRepository;
 
-    public List<Program> getAllPrograms() {
+    public List<Procedures> getAllPrograms() {
         return programRepository.findAll();
     }
 
-    public Optional<Program> getProgramById(Long id) {
+    public Optional<Procedures> getProgramById(Long id) {
         return programRepository.findById(id);
     }
 
-    public Program createProgram(Program program) {
+    public Procedures createProgram(Procedures program) {
         return programRepository.save(program);
     }
 

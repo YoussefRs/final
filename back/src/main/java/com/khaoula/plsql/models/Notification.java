@@ -13,7 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "notification")
-public class AdminNotification {
+public class Notification {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class AdminNotification {
     private LocalDateTime createdAt;
 
     // Default constructor
-    public AdminNotification() {}
+    public Notification() {}
 
     // Constructor with notification parameter
-    public AdminNotification(String notification) {
+    public Notification(String notification) {
         this.notification = notification;
     }
     

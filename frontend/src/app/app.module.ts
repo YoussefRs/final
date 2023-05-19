@@ -19,8 +19,8 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { SublevelMenuComponent } from './pages/admin/dashboard/sublevel-menu.component';
 import { UsersComponent } from './pages/admin/dashboard/dashboardComponents/users/users.component';
 import { ProceduresComponent } from './pages/admin/dashboard/dashboardComponents/procedures/procedures.component';
-import { GestionProceduresComponent } from './pages/admin/dashboard/dashboardComponents/gestion-procedures/gestion-procedures.component';
 import { ChartComponent } from './pages/admin/dashboard/dashboardComponents/chart/chart.component';
+import { RapportComponent } from './pages/admin/dashboard/dashboardComponents/rapport/rapport.component';
 
 
 
@@ -36,8 +36,8 @@ import { ChartComponent } from './pages/admin/dashboard/dashboardComponents/char
     SublevelMenuComponent,
     UsersComponent,
     ProceduresComponent,
-    GestionProceduresComponent,
     ChartComponent,
+    RapportComponent,
   ],
   imports: [
     BrowserModule,

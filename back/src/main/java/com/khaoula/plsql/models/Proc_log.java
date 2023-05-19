@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "proc_log")
-public class ProcLog {
+public class Proc_log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,9 +21,9 @@ public class ProcLog {
     @Column(length = 1000)
     private String body;
 
-    public ProcLog() {}
+    public Proc_log() {}
 
-    public ProcLog(String name, String status, String error, String body) {
+    public Proc_log(String name, String status, String error, String body) {
         this.name = name;
         this.status = status;
         this.error = error;

@@ -13,32 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.khaoula.plsql.models.AdminNotification;
+import com.khaoula.plsql.models.Notification;
 import com.khaoula.plsql.payload.response.NotificationResponse;
-import com.khaoula.plsql.repository.AdminNotificationRepository;
+import com.khaoula.plsql.repository.NotificationRepository;
 import com.khaoula.plsql.requests.ProcedureResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 @RestController
 @RequestMapping("/programs")
-public class AdminNotificationController {
-    private final AdminNotificationRepository repository;
+public class NotificationControl {
+    private final NotificationRepository repository;
 
-    public AdminNotificationController(AdminNotificationRepository repository) {
+    public NotificationControl(NotificationRepository repository) {
         this.repository = repository;
     }
-
+    
+    // Report controller (user interface)
     @PostMapping("/notifications")
-    public ResponseEntity<AdminNotification> createNotification(@RequestBody AdminNotification notification) {
-        AdminNotification savedNotification = repository.save(notification);
+    public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {
+        Notification savedNotification = repository.save(notification);
         return ResponseEntity.ok(savedNotification);
     }
-
+    
+    // Get all the notifications in notification box (Admin interface)
     @GetMapping("/allNotifications")
     public List<NotificationResponse> getAllNotifications() {
-        List<AdminNotification> notifications = repository.findAll();
+        List<Notification> notifications = repository.findAll();
         List<NotificationResponse> responseList = new ArrayList<>();
-        for (AdminNotification notification : notifications) {
+        for (Notification notification : notifications) {
             NotificationResponse response = new NotificationResponse(
                 notification.getId(),
                 notification.getNotification(),

@@ -26,22 +26,5 @@ export const sidebarData: INavbarData[] = [
             },
            
         ]
-    },
-    // {
-    //     routerLink: 'procedures',
-    //     icon: 'fal fa-users',
-    //     Label: 'Utilisateurs',
-    //     list: [
-    //         {
-    //             routerLink: 'utilisateur',
-    //             Label : 'Gestion des utlisateurs'
-    //         },
-    //     ]
-    // },
-    // {
-    //     routerLink: 'procedures',
-    //     icon: 'fal fa-history',
-    //     Label: 'Historique'
-    // },
-    
+    }
 ]

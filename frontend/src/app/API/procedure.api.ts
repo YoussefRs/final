@@ -30,29 +30,39 @@ export class ProcedureApi {
 
     //@route : /procedures
     //recevoir (getRequest) tous les procédures qui se trouvent dans la base de donnée
-    getPrograms(): Observable<any> {
+    getProcedures(): Observable<any> {
       return this.http.get(PROG_API + 'procedures');
     }
 
     //@route : /procedures/nom du procédure
-    //*** */
+    //executer un procedure /
     executeProcedure(name: string): Observable<any> {
       return this.http.post(`${PROCEDURE_API}/${name}`, httpOptions);
     }
 
+    //Récuperer les rapports du bd
     getProcedureLogs(): Observable<any> {
       return this.http.get(PROCEDURE_API + '/logs');
     }
 
+    //Supprimer un procédure
     deletProcedure(name: String): Observable<any> {
       return this.http.delete(`${PROCEDURE_API}/${name}`)
     }
 
+    //Singaler une procédure
     reportProcedure(body: string) : Observable<any> {
       return this.http.post('http://localhost:8081/programs/notifications', body, httpOptionsJson);
     }
-    
-    updateProcedure(body: string, name: string): Observable<any> {
-      return this.http.put(`${PROCEDURE_API}/${name}`, body, httpOptions)
+
+    //Récuperer tous les notification (partie admin)
+    getAllNotifications() : Observable<any> {
+      return this.http.get('http://localhost:8081/programs/allNotifications')
     }
+    
+    // Récuperer les statistiques
+    getStats() : Observable <any> {
+      return this.http.get('http://localhost:8081/programs/procedures/stats')
+    }
+    
   }
